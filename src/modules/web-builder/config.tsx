@@ -10,7 +10,7 @@ import {
   headingConfig,
   buttonConfig,
   spacerConfig,
-} from "./components";
+} from "./config_components";
 
 // Define the Props types for type safety
 import type {
@@ -22,7 +22,7 @@ import type {
   HeadingProps,
   ButtonProps,
   SpacerProps,
-} from "./components";
+} from "./config_components";
 
 // Define the component props type map
 export type ComponentProps = {

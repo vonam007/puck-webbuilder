@@ -1,7 +1,10 @@
+import { useState, useCallback } from "react";
 import { Puck, type Data } from "@measured/puck";
 import "@measured/puck/puck.css";
+import { Download, Upload, Eye } from "lucide-react";
 
 import { config, type ComponentProps } from "./config";
+import { JsonModal, PreviewModal } from "./components";
 
 // Type definition for the WebBuilder data
 export type WebBuilderData = Data<ComponentProps>;
@@ -62,14 +65,114 @@ export function WebBuilder({
   onChange,
   headerTitle = "Web Builder",
 }: WebBuilderProps) {
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<"import" | "export">("export");
+  const [currentData, setCurrentData] = useState<WebBuilderData>(data);
+  const [puckKey, setPuckKey] = useState(0); // Key to force Puck re-render
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
+  // Handle data change from Puck
+  const handleChange = useCallback(
+    (newData: WebBuilderData) => {
+      setCurrentData(newData);
+      onChange?.(newData);
+    },
+    [onChange]
+  );
+
+  // Open Export Modal
+  const openExportModal = useCallback(() => {
+    setModalType("export");
+    setIsModalOpen(true);
+  }, []);
+
+  // Open Import Modal
+  const openImportModal = useCallback(() => {
+    setModalType("import");
+    setIsModalOpen(true);
+  }, []);
+
+  // Handle Import Data
+  const handleImportData = useCallback((importedData: unknown) => {
+    const newData = importedData as WebBuilderData;
+    setCurrentData(newData);
+    setPuckKey((prev) => prev + 1); // Force Puck to re-render with new data
+  }, []);
+
+  // Close Modal
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  // Preview handlers
+  const openPreview = useCallback(() => {
+    setIsPreviewOpen(true);
+  }, []);
+
+  const closePreview = useCallback(() => {
+    setIsPreviewOpen(false);
+  }, []);
+
   return (
-    <Puck
-      config={config}
-      data={data}
-      onPublish={onSave}
-      onChange={onChange}
-      headerTitle={headerTitle}
-    />
+    <>
+      <Puck
+        key={puckKey}
+        config={config}
+        data={currentData}
+        onPublish={onSave}
+        onChange={handleChange}
+        headerTitle={headerTitle}
+        overrides={{
+          headerActions: ({ children }) => (
+            <>
+              <button
+                onClick={openPreview}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-500 transition-colors"
+                title="Live Preview"
+              >
+                <Eye className="w-4 h-4" />
+                Preview
+              </button>
+              <button
+                onClick={openImportModal}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-md hover:bg-slate-50 transition-colors"
+                title="Import JSON"
+              >
+                <Upload className="w-4 h-4" />
+                Import
+              </button>
+              <button
+                onClick={openExportModal}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-md hover:bg-slate-50 transition-colors"
+                title="Export JSON"
+              >
+                <Download className="w-4 h-4" />
+                Export
+              </button>
+              {children}
+            </>
+          ),
+        }}
+      />
+
+      {/* JSON Import/Export Modal */}
+      <JsonModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        type={modalType}
+        data={currentData}
+        onSave={handleImportData}
+      />
+
+      {/* Live Preview Modal */}
+      <PreviewModal
+        isOpen={isPreviewOpen}
+        onClose={closePreview}
+        config={config}
+        data={currentData}
+      />
+    </>
   );
 }
 
