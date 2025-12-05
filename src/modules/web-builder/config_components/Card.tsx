@@ -1,4 +1,3 @@
-import type { ComponentConfig } from "@measured/puck";
 import { ArrowRight } from "lucide-react";
 
 export interface CardProps {
@@ -112,58 +111,4 @@ export const Card: React.FC<CardProps> = ({
       </div>
     </div>
   );
-};
-
-export const cardConfig: ComponentConfig<CardProps> = {
-  label: "Card",
-  fields: {
-    image: {
-      type: "text",
-      label: "Image URL",
-    },
-    title: {
-      type: "text",
-      label: "Title",
-    },
-    description: {
-      type: "textarea",
-      label: "Description",
-    },
-    buttonText: {
-      type: "text",
-      label: "Button Text",
-    },
-    buttonLink: {
-      type: "text",
-      label: "Button Link",
-    },
-    variant: {
-      type: "radio",
-      label: "Card Variant",
-      options: [
-        { label: "Default", value: "default" },
-        { label: "Horizontal", value: "horizontal" },
-        { label: "Overlay", value: "overlay" },
-      ],
-    },
-    imageAspect: {
-      type: "radio",
-      label: "Image Aspect Ratio",
-      options: [
-        { label: "Square (1:1)", value: "square" },
-        { label: "Video (16:9)", value: "video" },
-        { label: "Wide (21:9)", value: "wide" },
-      ],
-    },
-  },
-  defaultProps: {
-    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800",
-    title: "Card Title",
-    description: "This is a description for the card. Add your content here.",
-    buttonText: "Learn More",
-    buttonLink: "#",
-    variant: "default",
-    imageAspect: "video",
-  },
-  render: (props) => <Card {...props} />,
 };

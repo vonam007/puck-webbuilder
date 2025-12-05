@@ -1,5 +1,3 @@
-import type { ComponentConfig } from "@measured/puck";
-
 export interface HeadingProps {
   text: string;
   level: "h1" | "h2" | "h3" | "h4";
@@ -44,51 +42,4 @@ export const Heading: React.FC<HeadingProps> = ({
       {text}
     </Tag>
   );
-};
-
-export const headingConfig: ComponentConfig<HeadingProps> = {
-  label: "Heading",
-  fields: {
-    text: {
-      type: "text",
-      label: "Text",
-    },
-    level: {
-      type: "radio",
-      label: "Heading Level",
-      options: [
-        { label: "H1", value: "h1" },
-        { label: "H2", value: "h2" },
-        { label: "H3", value: "h3" },
-        { label: "H4", value: "h4" },
-      ],
-    },
-    alignment: {
-      type: "radio",
-      label: "Alignment",
-      options: [
-        { label: "Left", value: "left" },
-        { label: "Center", value: "center" },
-        { label: "Right", value: "right" },
-      ],
-    },
-    color: {
-      type: "select",
-      label: "Color",
-      options: [
-        { label: "Default (Dark)", value: "default" },
-        { label: "Muted (Gray)", value: "muted" },
-        { label: "Primary (Purple)", value: "primary" },
-        { label: "White", value: "white" },
-        { label: "Gradient", value: "gradient" },
-      ],
-    },
-  },
-  defaultProps: {
-    text: "Your Heading Here",
-    level: "h2",
-    alignment: "left",
-    color: "default",
-  },
-  render: (props) => <Heading {...props} />,
 };

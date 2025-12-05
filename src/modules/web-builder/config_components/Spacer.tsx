@@ -1,5 +1,3 @@
-import type { ComponentConfig } from "@measured/puck";
-
 export interface SpacerProps {
   size: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
   showDivider: boolean;
@@ -37,45 +35,4 @@ export const Spacer: React.FC<SpacerProps> = ({
   }
 
   return <div className={sizeClasses[size]} />;
-};
-
-export const spacerConfig: ComponentConfig<SpacerProps> = {
-  label: "Spacer",
-  fields: {
-    size: {
-      type: "radio",
-      label: "Size",
-      options: [
-        { label: "XS (16px)", value: "xs" },
-        { label: "SM (32px)", value: "sm" },
-        { label: "MD (48px)", value: "md" },
-        { label: "LG (80px)", value: "lg" },
-        { label: "XL (128px)", value: "xl" },
-        { label: "2XL (192px)", value: "2xl" },
-      ],
-    },
-    showDivider: {
-      type: "radio",
-      label: "Show Divider",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
-    },
-    dividerColor: {
-      type: "radio",
-      label: "Divider Color",
-      options: [
-        { label: "Light", value: "light" },
-        { label: "Medium", value: "medium" },
-        { label: "Dark", value: "dark" },
-      ],
-    },
-  },
-  defaultProps: {
-    size: "md",
-    showDivider: false,
-    dividerColor: "light",
-  },
-  render: (props) => <Spacer {...props} />,
 };

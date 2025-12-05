@@ -1,4 +1,3 @@
-import type { ComponentConfig } from "@measured/puck";
 import { ArrowRight, Star } from "lucide-react";
 
 export interface HeroProps {
@@ -120,74 +119,4 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
     </section>
   );
-};
-
-export const heroConfig: ComponentConfig<HeroProps> = {
-  label: "Hero Section",
-  fields: {
-    title: {
-      type: "text",
-      label: "Title",
-    },
-    description: {
-      type: "textarea",
-      label: "Description",
-    },
-    image: {
-      type: "text",
-      label: "Background Image URL",
-    },
-    primaryButtonText: {
-      type: "text",
-      label: "Primary Button Text",
-    },
-    primaryButtonLink: {
-      type: "text",
-      label: "Primary Button Link",
-    },
-    secondaryButtonText: {
-      type: "text",
-      label: "Secondary Button Text",
-    },
-    secondaryButtonLink: {
-      type: "text",
-      label: "Secondary Button Link",
-    },
-    alignment: {
-      type: "radio",
-      label: "Content Alignment",
-      options: [
-        { label: "Left", value: "left" },
-        { label: "Center", value: "center" },
-        { label: "Right", value: "right" },
-      ],
-    },
-    showBadge: {
-      type: "radio",
-      label: "Show Badge",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
-    },
-    badgeText: {
-      type: "text",
-      label: "Badge Text",
-    },
-  },
-  defaultProps: {
-    title: "Build Amazing Websites Without Code",
-    description:
-      "Create stunning, responsive websites in minutes with our intuitive drag-and-drop builder. No coding skills required.",
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920",
-    primaryButtonText: "Get Started Free",
-    primaryButtonLink: "#",
-    secondaryButtonText: "Learn More",
-    secondaryButtonLink: "#",
-    alignment: "center",
-    showBadge: true,
-    badgeText: "New Feature Available",
-  },
-  render: (props) => <Hero {...props} />,
 };

@@ -1,4 +1,5 @@
-import type { ComponentConfig } from "@measured/puck";
+"use client";
+
 import { DropZone } from "@measured/puck";
 
 export interface GridProps {
@@ -79,79 +80,4 @@ export const Grid: React.FC<GridProps> = ({
       </div>
     </section>
   );
-};
-
-export const gridConfig: ComponentConfig<GridProps> = {
-  label: "Grid Layout",
-  fields: {
-    columns: {
-      type: "radio",
-      label: "Columns",
-      options: [
-        { label: "1", value: 1 },
-        { label: "2", value: 2 },
-        { label: "3", value: 3 },
-        { label: "4", value: 4 },
-        { label: "6", value: 6 },
-      ],
-    },
-    gap: {
-      type: "radio",
-      label: "Gap",
-      options: [
-        { label: "None", value: "none" },
-        { label: "Small", value: "small" },
-        { label: "Medium", value: "medium" },
-        { label: "Large", value: "large" },
-      ],
-    },
-    padding: {
-      type: "radio",
-      label: "Vertical Padding",
-      options: [
-        { label: "None", value: "none" },
-        { label: "Small", value: "small" },
-        { label: "Medium", value: "medium" },
-        { label: "Large", value: "large" },
-      ],
-    },
-    backgroundColor: {
-      type: "select",
-      label: "Background Color",
-      options: [
-        { label: "Transparent", value: "transparent" },
-        { label: "White", value: "white" },
-        { label: "Gray", value: "gray" },
-        { label: "Dark", value: "dark" },
-      ],
-    },
-    maxWidth: {
-      type: "radio",
-      label: "Max Width",
-      options: [
-        { label: "Full Width", value: "full" },
-        { label: "Container", value: "container" },
-        { label: "Narrow", value: "narrow" },
-      ],
-    },
-    verticalAlign: {
-      type: "radio",
-      label: "Vertical Alignment",
-      options: [
-        { label: "Top", value: "top" },
-        { label: "Center", value: "center" },
-        { label: "Bottom", value: "bottom" },
-        { label: "Stretch", value: "stretch" },
-      ],
-    },
-  },
-  defaultProps: {
-    columns: 2,
-    gap: "medium",
-    padding: "medium",
-    backgroundColor: "transparent",
-    maxWidth: "container",
-    verticalAlign: "stretch",
-  },
-  render: (props) => <Grid {...props} />,
 };

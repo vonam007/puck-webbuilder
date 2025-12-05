@@ -1,9 +1,21 @@
-// Export all components and their configs
-export { Hero, heroConfig, type HeroProps } from "./Hero";
-export { Features, featuresConfig, type FeaturesProps } from "./Features";
-export { Grid, gridConfig, type GridProps } from "./Grid";
-export { Card, cardConfig, type CardProps } from "./Card";
-export { Text, textConfig, type TextProps } from "./Text";
-export { Heading, headingConfig, type HeadingProps } from "./Heading";
-export { Button, buttonConfig, type ButtonProps } from "./Button";
-export { Spacer, spacerConfig, type SpacerProps } from "./Spacer";
+// Export all components and their types
+export { Hero, type HeroProps } from "./Hero";
+export { Features, type FeaturesProps } from "./Features";
+export { Grid, type GridProps } from "./Grid";
+export { Card, type CardProps } from "./Card";
+export { Text, type TextProps } from "./Text";
+export { Heading, type HeadingProps } from "./Heading";
+export { Button, type ButtonProps } from "./Button";
+export { Spacer, type SpacerProps } from "./Spacer";
+
+// Export all configs from the configs file
+export {
+  heroConfig,
+  featuresConfig,
+  gridConfig,
+  cardConfig,
+  textConfig,
+  headingConfig,
+  buttonConfig,
+  spacerConfig,
+} from "./configs";

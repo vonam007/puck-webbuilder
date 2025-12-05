@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { Puck, type Data } from "@measured/puck";
 import "@measured/puck/puck.css";
-import { Download, Upload, Eye } from "lucide-react";
+import { Download, Upload, Eye, ArrowLeft, Save } from "lucide-react";
 
 import { config, type ComponentProps } from "./config";
 import { JsonModal, PreviewModal } from "./components";
@@ -27,6 +27,11 @@ export interface WebBuilderProps {
    * Optional callback for when data changes (auto-save, etc.)
    */
   onChange?: (data: WebBuilderData) => void;
+
+  /**
+   * Optional callback for back button navigation
+   */
+  onBack?: () => void;
 
   /**
    * Optional header override for the Puck editor
@@ -63,6 +68,7 @@ export function WebBuilder({
   data,
   onSave,
   onChange,
+  onBack,
   headerTitle = "Web Builder",
 }: WebBuilderProps) {
   // Modal state
@@ -124,8 +130,18 @@ export function WebBuilder({
         onChange={handleChange}
         headerTitle={headerTitle}
         overrides={{
-          headerActions: ({ children }) => (
+          headerActions: () => (
             <>
+              {onBack && (
+                <button
+                  onClick={onBack}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-md hover:bg-slate-50 transition-colors"
+                  title="Back to Dashboard"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Back
+                </button>
+              )}
               <button
                 onClick={openPreview}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-500 transition-colors"
@@ -150,7 +166,14 @@ export function WebBuilder({
                 <Download className="w-4 h-4" />
                 Export
               </button>
-              {children}
+              <button
+                onClick={() => onSave(currentData)}
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 transition-colors"
+                title="Save Page"
+              >
+                <Save className="w-4 h-4" />
+                Save
+              </button>
             </>
           ),
         }}
@@ -180,6 +203,12 @@ export function WebBuilder({
  * Render component for displaying saved pages (read-only)
  */
 export { Render } from "@measured/puck";
+
+/**
+ * WebBuilderRenderer - Production-ready component for rendering saved pages
+ * Use this instead of Render for a cleaner API
+ */
+export { WebBuilderRenderer } from "./WebBuilderRenderer";
 
 /**
  * Export the config for advanced use cases
